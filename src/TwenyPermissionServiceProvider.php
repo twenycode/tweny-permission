@@ -16,30 +16,26 @@ class TwenyPermissionServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->bootRoutes();
-        $this->bootViews();
-        $this->publishConfig();
         $this->publishMigration();
+        $this->publishViews();
+        $this->publishController();
         $this->publishModel();
     }
 
-    //  Boot package routes
-    private function bootRoutes(): void
-    {
-        $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
-    }
-
-    //  Boot package views
-    private function bootViews(): void
-    {
-        $this->loadViewsFrom(__DIR__ . '/../resources/views','tweny-permission-views');
-    }
 
      //  Publish Package config file
-    private function publishConfig(): void
+//    private function publishConfig(): void
+//    {
+//        $this->publishes([__DIR__.'/../config/tweny-permission.php' => config_path('tweny-permission.php')],'tweny-permission');
+//    }
+
+    //  Publish Package config file
+    private function publishViews(): void
     {
-        $this->publishes([__DIR__.'/../config/tweny-permission.php' => config_path('tweny-permission.php')],'tweny-permission');
+        $this->publishes([__DIR__.'/../resources/views/roles' => base_path('resources/views/roles')],'tweny-permission');
+        $this->publishes([__DIR__.'/../resources/views/permissions' => base_path('resources/views/permissions')],'tweny-permission');
     }
+
 
     //  Publish Package config file
     private function publishMigration(): void
@@ -51,6 +47,17 @@ class TwenyPermissionServiceProvider extends ServiceProvider
     private function publishModel(): void
     {
         $this->publishes([__DIR__.'/../Models' => app_path('Models')],'tweny-permission');
+    }
+
+    //  Publish Package Controllers
+    private function publishController(): void
+    {
+        $this->publishes([__DIR__.'/Http/Controllers' => app_path('Http/Controllers/Auth')],'tweny-permission');
+    }
+    //  Publish Package Controllers
+    private function publishRequests(): void
+    {
+        $this->publishes([__DIR__.'/Http/Requests' => app_path('Http/Requests/Auth')],'tweny-permission');
     }
 
 

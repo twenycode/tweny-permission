@@ -5,7 +5,7 @@
         <x-card cardTitle="Roles">
 
             <x-slot name="cardButtons">
-                <x-nav-link href="{{route('roles.index')}}" label="Add" class="btn btn-primary btn-sm"/><br/>
+                <x-nav-link href="{{route('roles.create')}}" label="Add" class="btn btn-primary btn-sm"/><br/>
             </x-slot>
 
             <x-table>
@@ -26,7 +26,7 @@
                         <td  class="text-center">{{ $role->guard_name }}</td>
                         <td  class="text-left">{{ $role->descriptions }}</td>
                         <td>
-                            
+
                         </td>
                     </tr>
                 @endforeach

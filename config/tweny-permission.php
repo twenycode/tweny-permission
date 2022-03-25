@@ -10,6 +10,7 @@ return [
     'views' => [
         'role' => [
             'index' => env('TWENY_PERMISSION_ROLE_INDEX','tweny-permission-views::roles.index'),
+            'create' => env('TWENY_PERMISSION_ROLE_CREATE','tweny-permission-views::roles.create'),
             'edit' => env('TWENY_PERMISSION_ROLE_EDIT','tweny-permission-views::roles.edit')
         ],
         'permission' => [

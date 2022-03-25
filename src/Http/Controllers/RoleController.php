@@ -1,16 +1,43 @@
 <?php
 
-namespace TwenyCode\TwenyPermission\Http\Controllers;
+namespace App\Http\Controllers\Access;
 
-use App\Http\Controllers\Controller;
-use App\Models\Role;
+use App\Http\Controllers\CoreController;
+use App\Http\Requests\RoleRequest;
+use App\Repository\Interfaces\RoleRepositoryInterface;
 
-class RoleController extends Controller
+class RoleController extends CoreController
 {
-    public function index()
+    /* path to index view */
+    protected $view_index = 'auth.roles.index';
+
+    /* path to edit view */
+    protected $view_edit = 'auth.roles.edit';
+
+    /* define variable to hold single object */
+    protected $model = 'role';
+
+    /* define variable to hold collection of object */
+    protected $models = 'roles';
+
+    /* define variable to hold collection of object */
+    protected $route = 'roles.index';
+
+    /*  Controller constructor. */
+    public function __construct(RoleRepositoryInterface $interface)
     {
-        $roles = Role::get();
-        return view(config('tweny-permission.views.role.index'),compact('roles'));
+        parent::__construct($interface);
     }
 
+    /* store new resource */
+    protected function store(RoleRequest $request)
+    {
+        return $this->storing($request);
+    }
+
+    /* update new resource */
+    protected function update(RoleRequest $request,$id)
+    {
+        return $this->updating($request,$id);
+    }
 }
