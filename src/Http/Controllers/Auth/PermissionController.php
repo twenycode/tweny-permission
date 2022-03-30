@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Auth;
+namespace App\Http\Controllers\Authold;
 
 use App\Http\Controllers\CoreController;
 use App\Http\Requests\Auth\PermissionRequest;
