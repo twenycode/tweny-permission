@@ -35,7 +35,7 @@ return new class extends Migration
         });
 
         Schema::table('roles', function (Blueprint $table) {
-            $table->dropColumn(['category']);
+            $table->dropColumn(['descriptions']);
         });
     }
 };

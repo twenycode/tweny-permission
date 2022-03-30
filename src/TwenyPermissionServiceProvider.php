@@ -23,19 +23,12 @@ class TwenyPermissionServiceProvider extends ServiceProvider
     }
 
 
-     //  Publish Package config file
-//    private function publishConfig(): void
-//    {
-//        $this->publishes([__DIR__.'/../config/tweny-permission.php' => config_path('tweny-permission.php')],'tweny-permission');
-//    }
-
     //  Publish Package config file
     private function publishViews(): void
     {
-        $this->publishes([__DIR__.'/../resources/views/roles' => base_path('resources/views/roles')],'tweny-permission');
-        $this->publishes([__DIR__.'/../resources/views/permissions' => base_path('resources/views/permissions')],'tweny-permission');
+        $this->publishes([__DIR__.'/../resources/views/roles' => base_path('resources/views/auth/roles')],'tweny-permission');
+        $this->publishes([__DIR__.'/../resources/views/permissions' => base_path('resources/views/auth/permissions')],'tweny-permission');
     }
-
 
     //  Publish Package config file
     private function publishMigration(): void
@@ -46,18 +39,19 @@ class TwenyPermissionServiceProvider extends ServiceProvider
     //  Publish Package Models
     private function publishModel(): void
     {
-        $this->publishes([__DIR__.'/../Models' => app_path('Models')],'tweny-permission');
+        $this->publishes([__DIR__.'/../Models/Auth' => app_path('Models/Auth')],'tweny-permission');
     }
 
     //  Publish Package Controllers
     private function publishController(): void
     {
-        $this->publishes([__DIR__.'/Http/Controllers' => app_path('Http/Controllers/Auth')],'tweny-permission');
+        $this->publishes([__DIR__.'/Http/Controllers/Auth' => app_path('Http/Controllers/Auth')],'tweny-permission');
     }
+
     //  Publish Package Controllers
     private function publishRequests(): void
     {
-        $this->publishes([__DIR__.'/Http/Requests' => app_path('Http/Requests/Auth')],'tweny-permission');
+        $this->publishes([__DIR__.'/Http/Requests/Auth' => app_path('Http/Requests/Auth')],'tweny-permission');
     }
 
 

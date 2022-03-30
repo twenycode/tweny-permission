@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Auth;
 
 use Spatie\Permission\Models\Permission as SpatiePermission;
 
@@ -23,7 +23,7 @@ class Permission extends SpatiePermission
     }
 
     // Get Name. ID and Category of permissions and sort by name and group by category
-    public function getNameId()
+    public function getNameGroupByCategory()
     {
         return $this->select('name','id','category')->get()->sortBy('name')->groupBy('category');
     }
