@@ -39,7 +39,7 @@ class TwenyPermissionServiceProvider extends ServiceProvider
     //  Publish Package Models
     private function publishModel(): void
     {
-        $this->publishes([__DIR__.'/../Models/Auth' => app_path('Models/Auth')],'tweny-permission');
+        $this->publishes([__DIR__.'/../Models' => app_path('Models')],'tweny-permission');
     }
 
     //  Publish Package Controllers
