@@ -15,7 +15,8 @@
     ],
     "minimum-stability": "dev",
     "require": {
-        "spatie/laravel-permission": "^5.0"
+        "spatie/laravel-permission": "^5.0",
+        "doctrine/dbal": "^3.3"
     },
     "extra": {
         "laravel": {
