@@ -20,7 +20,7 @@ class RoleRequest extends FormRequest
         {
             case 'POST': {
                 return [
-                    'name' => ['required','string','max:255','unique:roles'],
+                    'name' => ['required','string','max:25','unique:roles'],
                     'permissions' => ['nullable','array'],
                     'descriptions' => ['string','nullable'],
                 ];

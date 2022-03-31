@@ -15,10 +15,12 @@ return new class extends Migration
     {
         Schema::table('permissions', function (Blueprint $table) {
             $table->string('category')->nullable()->after('guard_name');
+            $table->string('guard_name')->default('web')->change();
             $table->mediumText('descriptions')->nullable()->after('category');
         });
 
         Schema::table('roles', function (Blueprint $table) {
+            $table->string('guard_name')->default('web')->change();
             $table->mediumText('descriptions')->nullable()->after('guard_name');
         });
     }

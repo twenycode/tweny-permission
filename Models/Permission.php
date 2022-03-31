@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Models\Auth;
+namespace App\Models;
 
 use Spatie\Permission\Models\Permission as SpatiePermission;
 
 class Permission extends SpatiePermission
 {
+    protected $guard_name = 'web';
+
     //  The attributes that are mass assignable
     protected $fillable = [ 'name','descriptions','category','guard_name'];
 
@@ -33,5 +35,12 @@ class Permission extends SpatiePermission
     {
         return ucwords(str_replace("-"," ",substr($value,0,strpos($value,"_"))));
     }
+
+    //  Get permission action from permission name
+    public function getActionAttribute()
+    {
+        return substr($this->name,strpos($this->name,"_") + 1);
+    }
+
 
 }

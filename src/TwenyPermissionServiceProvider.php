@@ -18,7 +18,7 @@ class TwenyPermissionServiceProvider extends ServiceProvider
     {
         $this->publishMigration();
         $this->publishViews();
-        $this->publishController();
+        $this->publishApp();
         $this->publishModel();
     }
 
@@ -26,8 +26,8 @@ class TwenyPermissionServiceProvider extends ServiceProvider
     //  Publish Package config file
     private function publishViews(): void
     {
-        $this->publishes([__DIR__.'/../resources/views/roles' => base_path('resources/views/auth/roles')],'tweny-permission');
-        $this->publishes([__DIR__.'/../resources/views/permissions' => base_path('resources/views/auth/permissions')],'tweny-permission');
+        $this->publishes([__DIR__.'/../resources/views' => base_path('resources/views/auth')],'tweny-permission');
+        $this->publishes([__DIR__.'/../resources/components' => base_path('resources/views/components')],'tweny-permission');
     }
 
     //  Publish Package config file
@@ -43,14 +43,11 @@ class TwenyPermissionServiceProvider extends ServiceProvider
     }
 
     //  Publish Package Controllers
-    private function publishController(): void
+    private function publishApp(): void
     {
         $this->publishes([__DIR__.'/Http/Controllers/Auth' => app_path('Http/Controllers/Auth')],'tweny-permission');
-    }
-
-    //  Publish Package Controllers
-    private function publishRequests(): void
-    {
+        $this->publishes([__DIR__.'/Services' => app_path('Services')],'tweny-permission');
+        $this->publishes([__DIR__.'/View' => app_path('View')],'tweny-permission');
         $this->publishes([__DIR__.'/Http/Requests/Auth' => app_path('Http/Requests/Auth')],'tweny-permission');
     }
 
