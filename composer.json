@@ -15,6 +15,7 @@
     ],
     "minimum-stability": "dev",
     "require": {
+        "twenycode/tweny-core": "^1.1",
         "spatie/laravel-permission": "^5.0",
         "doctrine/dbal": "^3.3"
     },
