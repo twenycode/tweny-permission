@@ -2,59 +2,56 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\CoreController;
-use App\Http\Requests\Auth\PermissionRequest;
+use App\Http\Controllers\BaseController;
+use App\Http\Requests\Auth\PermissionCreateRequest;
+use App\Http\Requests\Auth\PermissionUpdateRequest;
 use App\Models\Permission;
-use App\Services\Auth\PermissionService;
+use App\Models\Role;
 use Exception;
 
-class PermissionController extends CoreController
+class PermissionController extends BaseController
 {
-    //
-    private $service;
+    // index view
+    protected $index_view = 'auth.permissions.index' ;
 
-    // path to index view
-    protected $view_index = 'auth.permissions.index';
+    // create view
+    protected $create_view = 'auth.permissions.create';
 
-    // path to edit view
-    protected $view_edit = 'auth.permissions.edit';
+    // edit view
+    protected $edit_view =  'auth.permissions.edit';
 
-    // path to create view
-    protected $view_create = 'auth.permissions.create';
+    // define variable to hold single resource
+    protected $resource = 'permission';
 
-    // define variable to hold single object
-    protected $object = 'permission';
+    // define variable to hold collection resources
+    protected $resources = 'permissions';
 
-    // define variable to hold collection of object
-    protected $objects = 'permissions';
-
-    // define variable to hold collection of object
+    // Redirect route after particular action
     protected $route = 'permissions.index';
 
-    //  Controller constructor.
-    public function __construct(Permission $model, PermissionService $permissionService)
+    // define variable to hold model relations
+    protected $model_relation = ['role'];
+
+    public function __construct(Permission $permission)
     {
-        parent::__construct($model);
-        $this->service = $permissionService;
+        parent::__construct($permission);
     }
 
-    protected function index()
+
+    // Get list of resources
+    public function index()
     {
-        try {
-            ${$this->objects} = $this->model->with('role')->get();  //Get all users
-            return view($this->view_index,compact($this->objects));
-        }
-        catch (Exception $e) {
-            return $this->error('Page Not Found');
-        }
+        return $this->modelWithRelation();
     }
 
     // store new resource
-    protected function store(PermissionRequest $request)
+    public function store(PermissionCreateRequest $request)
     {
+        $this->canCreate();
         try {
-            $this->service->store($this->model,$request);
-            return $this->successRoute($this->route,'Added Successfully');
+            $permission = $this->model->create($request->validated());
+            isset($request['roles']) && $this->assignRoles($request['roles'], $permission); //Check if permission request has data
+            return $this->successRoute($this->route,'Permission added');
         }
         catch (Exception $e) {
             return $this->errorWithInput($request);
@@ -62,14 +59,40 @@ class PermissionController extends CoreController
     }
 
     // update existing resource
-    protected function update(PermissionRequest $request,$id)
+    public function update(PermissionUpdateRequest $request,$id)
     {
+        $this->canUpdate();
         try {
-            $this->service->update($this->model,$id,$request);
-            return $this->successRoute($this->route,'Updated Successfully');
+            $permission =  $this->model->find($this->decode($id));
+            $permission->update($request->validated());
+            isset($request['roles']) ? $this->updateRoles($permission,$request['roles']) : $this->removeRoles($permission);
+            return $this->successRoute($this->route,'Permission updated');
         }
         catch (Exception $e) {
             return $this->errorWithInput($request);
         }
     }
+
+    /* Assign Permissions To roles */
+    private function assignRoles($roles,$permission) : void
+    {
+        //If one or more role is selected
+        foreach ($roles as $role) {
+            $r = Role::find($role); //Match input role to db record
+            $r->givePermissionTo($permission);
+        }
+    }
+
+    /* Update Permission to Roles */
+    private function updateRoles($permission, $roles) :void
+    {
+        $permission->roles()->sync($roles);
+    }
+
+    /* Remove all roles from permission */
+    private function removeRoles($permission) : void
+    {
+        $permission->roles()->detach();
+    }
+
 }

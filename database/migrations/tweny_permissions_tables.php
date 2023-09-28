@@ -14,13 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::table('permissions', function (Blueprint $table) {
-            $table->string('category')->nullable()->after('guard_name');
-            $table->string('guard_name')->default('web')->change();
-            $table->mediumText('descriptions')->nullable()->after('category');
+            $table->string('group_name')->nullable()->after('name');
+            $table->mediumText('descriptions')->nullable()->after('guard_name');
         });
 
         Schema::table('roles', function (Blueprint $table) {
-            $table->string('guard_name')->default('web')->change();
             $table->mediumText('descriptions')->nullable()->after('guard_name');
         });
     }
@@ -33,7 +31,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('permissions', function (Blueprint $table) {
-            $table->dropColumn(['category','descriptions']);
+            $table->dropColumn(['group_name','descriptions']);
         });
 
         Schema::table('roles', function (Blueprint $table) {

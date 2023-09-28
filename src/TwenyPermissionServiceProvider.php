@@ -28,6 +28,7 @@ class TwenyPermissionServiceProvider extends ServiceProvider
     {
         $this->publishes([__DIR__.'/../resources/views' => base_path('resources/views/auth')],'tweny-permission');
         $this->publishes([__DIR__.'/../resources/components' => base_path('resources/views/components')],'tweny-permission');
+        $this->publishes([__DIR__.'/../src' => base_path('app')],'tweny-permission');
     }
 
     //  Publish Package config file

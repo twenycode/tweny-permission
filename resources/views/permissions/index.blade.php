@@ -17,7 +17,7 @@
                     <th class="col-first">#</th>
                     <th>Name</th>
                     <th>Guard</th>
-                    <th>Category</th>
+                    <th>Group Name</th>
                     <th>Description</th>
                     <th>Roles</th>
                     <th class="col-last"><i class="fa-solid fa-gears"></i></th>
@@ -28,7 +28,7 @@
                         <td class="text-center">{{ $loop->iteration }}</td>
                         <td class="text-left">{{ $permission->name }}</td>
                         <td  class="text-center">{{ $permission->guard_name }}</td>
-                        <td  class="text-center">{{ $permission->category }}</td>
+                        <td  class="text-center">{{ $permission->group_name }}</td>
                         <td  class="text-left">{{ $permission->descriptions }}</td>
                         <td  class="text-center">
                             <ul class="list list-inline">
